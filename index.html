@@ -1,0 +1,1070 @@
+```html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>چالش دانش | تاریخ یازدهم انسانی (۱۶ درس کامل)</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* پایه فونت 12px */
+        html {
+            font-size: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* body تمام صفحه و بدون اسکرول */
+        body {
+            background: linear-gradient(145deg, #0a1f44 0%, #4a0e4e 50%, #d4145a 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+            position: relative;
+        }
+
+        /* انیمیشن ستاره‌های پس‌زمینه */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                        radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                        radial-gradient(2px 2px at 80px 120px, #fff, rgba(0,0,0,0)),
+                        radial-gradient(2px 2px at 160px 50px, #fff, rgba(0,0,0,0));
+            background-size: 200px 200px;
+            background-repeat: repeat;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* کارت اصلی با ارتفاع ثابت و اسکرول داخلی (در صورت نیاز) */
+        .game-container {
+            background: linear-gradient(145deg, #ffd166, #f9a826, #ff6b6b);
+            border-radius: 40px;
+            padding: 16px 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 98vh;
+            height: auto;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), 0 0 0 4px #ffe484, 0 0 20px #ffb347;
+            border: 2px solid #ffdd55;
+            transform: perspective(1000px) rotateX(2deg);
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 10;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #ffaa33 #ffe484;
+        }
+
+        .game-container:hover {
+            transform: perspective(1000px) rotateX(0deg) scale(1.01);
+            box-shadow: 0 30px 40px rgba(0, 0, 0, 0.6), 0 0 0 4px #ffdd55, 0 0 30px #ffaa33;
+        }
+
+        /* استایل اسکرول برای وبکیت */
+        .game-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .game-container::-webkit-scrollbar-track {
+            background: #ffe484;
+            border-radius: 10px;
+        }
+        .game-container::-webkit-scrollbar-thumb {
+            background: #ff9100;
+            border-radius: 10px;
+            border: 2px solid #ffcc66;
+        }
+
+        /* صفحات */
+        .page {
+            display: none;
+            transition: 0.3s;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* آیکون‌های سه‌بعدی */
+        .icon-3d {
+            display: inline-block;
+            transform: perspective(200px) rotateY(5deg) rotateX(2deg);
+            filter: drop-shadow(5px 10px 5px rgba(0,0,0,0.3));
+            transition: transform 0.2s;
+            color: #ffeb99;
+        }
+
+        .icon-3d:hover {
+            transform: perspective(200px) rotateY(0deg) rotateX(0deg) scale(1.1);
+            filter: drop-shadow(8px 12px 8px rgba(0,0,0,0.4));
+        }
+
+        /* استایل‌های صفحه‌های غیرآزمون */
+        .page-title {
+            text-align: center;
+            color: #2c0735;
+            font-size: 2rem;
+            text-shadow: 2px 2px 0 #ffcc00, 4px 4px 0 rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .name-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            max-width: 500px;
+            margin: 5px auto;
+            padding: 20px 15px;
+            border-radius: 60px 60px 20px 20px;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.5), inset 0 2px 5px #fff9cc;
+            border: 3px solid #fff5b0;
+            text-align: center;
+        }
+        .name-box label {
+            color: #fff9e0;
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-shadow: 2px 2px 0 #aa4a44;
+        }
+        .name-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 50px;
+            background: #fffbe6;
+            font-size: 1.4rem;
+            text-align: center;
+            color: #3a1b3a;
+            border: 3px solid #ffcc66;
+            outline: none;
+            box-shadow: 0 8px 0 #b45f2e, inset 0 2px 8px #ffd966;
+        }
+
+        .btn {
+            background: linear-gradient(145deg, #ffcc33, #ffaa00);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 25px;
+            margin: 10px 5px 0;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2e1b0f;
+            cursor: pointer;
+            box-shadow: 0 10px 0 #b45f2e, 0 8px 15px black;
+            transition: 0.08s linear;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 2px solid #ffe484;
+            transform: perspective(200px) rotateX(2deg);
+        }
+        .btn:active {
+            transform: translateY(5px) perspective(200px) rotateX(0deg);
+            box-shadow: 0 5px 0 #b45f2e, 0 8px 15px black;
+        }
+        .btn-small {
+            font-size: 1.2rem;
+            padding: 6px 15px;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #2e1b0f;
+            border: 3px solid #ffcc33;
+            box-shadow: none;
+        }
+
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .lesson-card {
+            background: linear-gradient(145deg, #6a4c9c, #b05b9e);
+            padding: 12px 5px;
+            border-radius: 25px 25px 15px 15px;
+            border: 3px solid #ffcc88;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff5d6;
+            cursor: pointer;
+            box-shadow: 0 10px 0 #4a2d5e, 0 10px 15px black;
+            transition: 0.1s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transform: perspective(300px) rotateX(2deg);
+        }
+        .lesson-card i {
+            font-size: 2.2rem;
+            color: #ffd966;
+            filter: drop-shadow(4px 6px 3px #00000070);
+            transform: perspective(200px) rotateY(3deg);
+        }
+        .lesson-card:active {
+            transform: translateY(5px) perspective(300px) rotateX(0deg);
+            box-shadow: 0 5px 0 #4a2d5e, 0 10px 15px black;
+        }
+
+        /* کارنامه */
+        .result-box {
+            background: rgba(255, 240, 200, 0.3);
+            backdrop-filter: blur(5px);
+            border: 4px solid #ffcc66;
+            border-radius: 60px 60px 20px 20px;
+            padding: 20px 15px;
+            max-width: 700px;
+            margin: 15px auto;
+            text-align: center;
+            box-shadow: 0 20px 20px black;
+            color: #2a1b3a;
+        }
+        .result-box h2 {
+            font-size: 2.5rem;
+            color: #ffefc0;
+            text-shadow: 2px 2px 0 #b86b2c;
+        }
+        .score-badge {
+            font-size: 3.5rem;
+            background: #ffdb8e;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin: 10px;
+            border: 4px solid #ffa500;
+            box-shadow: inset 0 -4px 0 #b45f2e, 0 8px 15px black;
+        }
+
+        /* صفحه آزمون */
+        .lesson-title {
+            text-align: center;
+            background: rgba(255,215,0,0.3);
+            border-radius: 40px;
+            padding: 6px 12px;
+            margin-bottom: 8px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #2d004d;
+            text-shadow: 1px 1px 0 #ffd966;
+            border: 2px solid #ffaa33;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
+            background: rgba(255,255,240,0.2);
+            border-radius: 50px;
+            padding: 6px 12px;
+            border: 2px solid #fff3b0;
+        }
+        .question-number {
+            color: #fffada;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: #3f2b4b;
+            display: inline-block;
+            padding: 5px 16px;
+            border-radius: 40px;
+            border: 2px solid #ffcc66;
+            box-shadow: 0 0 10px #ffe066;
+        }
+        .prize {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #fff0b5;
+            text-shadow: 0 0 8px #ffb703, 0 0 15px #ff9100;
+            background: #2e1a36;
+            border-radius: 50px;
+            padding: 4px 20px;
+            border: 3px solid #ffcc55;
+            line-height: 1.2;
+            direction: ltr;
+            font-family: monospace;
+            box-shadow: inset 0 -3px 0 #7f4f24, 0 6px 10px black;
+        }
+        .question {
+            color: #2f1d2e;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 12px 0 12px;
+            text-align: center;
+            line-height: 1.4;
+            background: #ffeeaa;
+            padding: 14px 12px;
+            border-radius: 30px 30px 15px 15px;
+            border: 3px solid #ff9900;
+            box-shadow: 0 10px 0 #b45f2e, inset 0 2px 10px #ffffcc;
+            color: #1a0033;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 10px 0 15px;
+        }
+
+        .option {
+            border-radius: 60px 15px 60px 15px;
+            padding: 12px 18px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 0 #5a3a1e, 0 6px 12px black;
+            cursor: pointer;
+            text-align: right;
+            border: 2px solid #fff8d0;
+            transform: perspective(300px) rotateX(1deg);
+        }
+
+        /* رنگ‌های ملایم و پاستلی برای گزینه‌ها */
+        .option[data-color="0"] { background: #ffb6c1; } /* صورتی کم‌رنگ */
+        .option[data-color="1"] { background: #b19cd9; } /* بنفش کم‌رنگ */
+        .option[data-color="2"] { background: #a8e6cf; } /* سبز کم‌رنگ */
+        .option[data-color="3"] { background: #fffacd; } /* زرد کم‌رنگ */
+
+        .option:hover {
+            transform: translateY(-3px) perspective(300px) rotateX(0deg);
+            box-shadow: 0 11px 0 #5a3a1e, 0 10px 15px black;
+            filter: brightness(1.1);
+        }
+
+        .letter {
+            background: #ffffffd0;
+            color: #2d1b36;
+            font-weight: 900;
+            font-size: 1.8rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50% 30% 50% 30%;
+            box-shadow: 0 5px 0 #886633, 0 0 15px #ffea9e;
+            border: 2px solid #fff1b0;
+            transform: rotate(2deg);
+        }
+
+        /* حالت صحیح: سبز (انتخاب کاربر یا نمایش پاسخ درست) */
+        .option.selected-correct {
+            background: #2ecc71 !important;
+            color: #000000 !important;
+            border-color: #333333 !important;
+            box-shadow: 0 8px 0 #1e8449, 0 0 25px #00ff88 !important;
+        }
+
+        /* حالت غلط: قرمز (گزینه اشتباه انتخاب شده) */
+        .option.selected-wrong {
+            background: #e74c3c !important;
+            border-color: #f9e0e0 !important;
+            box-shadow: 0 8px 0 #943126, 0 0 25px #ff4444 !important;
+        }
+
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 12px 0 5px;
+        }
+        .test-button {
+            background: linear-gradient(145deg, #f7d44a, #f9a826);
+            color: #331c0e;
+            font-size: 1.4rem;
+            font-weight: 800;
+            padding: 10px 20px;
+            border-radius: 40px 15px 40px 15px;
+            text-align: center;
+            border: 2px solid #ffcf5a;
+            box-shadow: 0 8px 0 #b2592e, 0 0 15px #ffbb33;
+            transition: all 0.1s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .test-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #b2592e, 0 0 15px #ffbb33;
+        }
+        .test-button.small {
+            font-size: 1.2rem;
+            padding: 6px 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            border-top: 2px dashed #ffd966;
+            padding-top: 12px;
+        }
+        .footer-links span {
+            color: #1f0733;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background: #fff0b5;
+            padding: 5px 20px;
+            border-radius: 50px 15px 50px 15px;
+            border: 2px solid #ff9933;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            box-shadow: 0 5px 0 #aa6933, 0 4px 10px black;
+        }
+        .footer-links span i {
+            color: #b84a2c;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: #000000dd;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(6px);
+        }
+        .modal-content {
+            background: #ffecbb;
+            border: 6px solid #ffaa33;
+            border-radius: 70px 20px 70px 20px;
+            padding: 25px;
+            max-width: 450px;
+            margin: 20px;
+            color: #2d0f3a;
+            font-size: 1.5rem;
+            text-align: center;
+            box-shadow: 0 25px 30px black, 0 0 0 4px #ffe066;
+        }
+        .modal-content button {
+            margin-top: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .game-container { padding: 12px 8px; }
+            .prize { font-size: 2rem; }
+            .question { font-size: 1.4rem; }
+            .option { font-size: 1.2rem; padding: 10px 12px; }
+            .letter { width: 40px; height: 40px; font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="game-container" id="gameContainer">
+
+    <!-- MODALS -->
+    <div id="infoModal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div id="modalText">متن</div>
+            <button class="btn btn-small" onclick="closeModal()">بستن</button>
+        </div>
+    </div>
+
+    <!-- PAGE 0 : دریافت نام -->
+    <div id="page0" class="page active">
+        <div class="name-box">
+            <label><i class="fas fa-user-graduate icon-3d"></i> نام داوطلب</label>
+            <input type="text" id="studentName" placeholder="مثلاً: پرهام احمدی" autocomplete="off">
+            <div>
+                <button class="btn" onclick="saveNameAndGo()"><i class="fas fa-play icon-3d"></i> شروع بازی</button>
+            </div>
+        </div>
+        <div class="footer-links">
+            <span onclick="showInfo('توضیحات')"><i class="fas fa-info-circle"></i> توضیحات</span>
+            <span onclick="showInfo('درباره ما')"><i class="fas fa-address-card"></i> درباره ما</span>
+        </div>
+    </div>
+
+    <!-- PAGE 1 : لیست درس‌ها -->
+    <div id="page1" class="page">
+        <h1 class="page-title"><i class="fas fa-book-open icon-3d"></i> دروس تاریخ یازدهم</h1>
+        <div id="lessonList" class="lesson-grid"></div>
+        <div class="footer-links">
+            <span onclick="showInfo('توضیحات')"><i class="fas fa-info-circle"></i> توضیحات</span>
+            <span onclick="showInfo('درباره ما')"><i class="fas fa-address-card"></i> درباره ما</span>
+        </div>
+    </div>
+
+    <!-- PAGE 2 : آزمون هر درس -->
+    <div id="page2" class="page">
+        <!-- عنوان درس -->
+        <div class="lesson-title" id="lessonTitle">درس اول: منابع پژوهش در تاریخ اسلام</div>
+
+        <div class="quiz-header">
+            <div class="question-number" id="qCount">1 / 10</div>
+            <div class="prize" id="timerDisplay">30</div>
+            <button class="test-button small" onclick="backToLessons()"><i class="fas fa-arrow-right"></i> بازگشت</button>
+        </div>
+
+        <div class="question" id="questionText"></div>
+
+        <div class="options" id="optionsGrid"></div>
+
+        <div class="nav-buttons">
+            <button class="test-button" onclick="prevLesson()"><i class="fas fa-step-backward"></i> درس قبل</button>
+            <button class="test-button" onclick="nextLesson()">درس بعد <i class="fas fa-step-forward"></i></button>
+        </div>
+
+        <div class="footer-links">
+            <span onclick="showInfo('توضیحات')"><i class="fas fa-info-circle"></i> توضیحات</span>
+            <span onclick="showInfo('درباره ما')"><i class="fas fa-address-card"></i> درباره ما</span>
+        </div>
+    </div>
+
+    <!-- PAGE 3 : کارنامه درس -->
+    <div id="page3" class="page">
+        <div class="result-box" id="resultBox">
+            <h2 id="resultName"></h2>
+            <div class="score-badge" id="scoreDisplay"></div>
+            <div id="detailStat"></div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 15px;">
+                <button class="btn" onclick="retryLesson()"><i class="fas fa-redo-alt icon-3d"></i> تکرار درس (با جابه‌جایی)</button>
+                <button class="btn btn-outline" onclick="backToLessons()"><i class="fas fa-list icon-3d"></i> لیست درس‌ها</button>
+            </div>
+        </div>
+        <div class="footer-links">
+            <span onclick="showInfo('توضیحات')"><i class="fas fa-info-circle"></i> توضیحات</span>
+            <span onclick="showInfo('درباره ما')"><i class="fas fa-address-card"></i> درباره ما</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ==============================================================
+        // تمام ۱۶ درس با ۱۰ سوال (بر اساس فایل اصلی)
+        // ==============================================================
+        const lessons = [
+            // درس ۱
+            {
+                title: "منابع پژوهش در تاریخ اسلام",
+                questions: [
+                    { text: "مهمترین تفاوت منابع غیرنوشتاری مانند بناها و اشیاء با منابع نوشتاری در چیست؟", options: ["منابع غیرنوشتاری همواره از اعتبار بیشتری برخوردارند", "منابع غیرنوشتاری تصویری عینی و ملموس از فرهنگ و عقاید پیشینیان ارائه می‌دهند", "منابع نوشتاری فقط به رویدادهای سیاسی می‌پردازند", "منابع غیرنوشتاری فقط متعلق به دوره اسلامی هستند"], correct: 1 },
+                    { text: "قرآن کریم چه نقشی در توسعه تاریخ‌نگاری اسلامی داشت؟", options: ["تمام وقایع تاریخی صدر اسلام را به تفصیل ثبت کرده است", "روش نقد حدیث را به مسلمانان آموخت", "تنها منبع معتبر برای شناخت تاریخ ایران است", "با تشویق به سیر و سفر در سرگذشت اقوام گذشته، زمینه سفرهای علمی مورخان را فراهم کرد"], correct: 3 },
+                    { text: "کتاب‌های «تاریخ عمومی» چه ویژگی مشخصی دارند؟", options: ["فقط به تاریخ ایران می‌پردازند", "تنها به زندگی پیامبران اختصاص دارند", "نگارش تاریخ را از آفرینش عالم آغاز می‌کنند تا زمان حیات مؤلف", "در دوره صفوی منسوخ شدند"], correct: 2 },
+                    { text: "هدف اصلی از تألیف «تاریخ‌های محلی» چه بوده است؟", options: ["رقابت با تاریخ‌های عمومی", "ثبت رویدادهای تاریخی، ویژگی‌های جغرافیایی و زندگی‌نامه مفاخر یک منطقه خاص", "نقد خلفای اموی", "ترویج زبان فارسی"], correct: 1 },
+                    { text: "سفرنامه‌ها چه ارزش تاریخی ویژه‌ای نسبت به سایر منابع دارند؟", options: ["وقایع سیاسی را دقیق‌تر ثبت کرده‌اند", "اطلاعاتی از زندگی اجتماعی مردم ارائه می‌دهند که در منابع دیگر کمتر دیده می‌شود", "قدیمی‌ترین منابع تاریخی هستند", "فقط توسط پادشاهان نوشته شده‌اند"], correct: 1 },
+                    { text: "متون ادبی (نظم و نثر) به چه دلیل منبع مهمی برای شناخت تاریخ محسوب می‌شوند؟", options: ["چون اوضاع سیاسی، اجتماعی و عقاید رایج هر عصر در آنها منعکس می‌شود", "زیرا نویسندگان آنها همیشه در دربار بودند", "به دلیل اینکه قدیمی‌ترین منابع مکتوب هستند", "چون زبان عربی را رواج دادند"], correct: 0 },
+                    { text: "«سیاست‌نامه‌ها» بیشتر به کدام موضوع می‌پردازند؟", options: ["زندگی نامه شاعران", "شیوه کشورداری و مناسبات حکومت و مردم", "فتاوای فقهی", "جغرافیای سرزمین‌ها"], correct: 1 },
+                    { text: "نوشته‌های جغرافیایی مانند «صوره الارض» یا «احسن التقاسیم» چه نوع اطلاعاتی در اختیار مورخ می‌گذارند؟", options: ["اطلاعاتی درباره آداب و رسوم، فرهنگ، نوع معیشت و وضعیت اقتصادی مناطق", "فقط موقعیت کوه‌ها و رودها", "منحصراً اطلاعات نظامی", "تنها اسامی پادشاهان"], correct: 0 },
+                    { text: "«تک‌نگاری» در تاریخ‌نویسی از چه دوره‌ای رواج یافت؟", options: ["از دوره خلفای نخستین", "از دوره امویان", "از دوره تیموریان به بعد", "از دوره صفوی"], correct: 2 },
+                    { text: "«نقد روایت‌کننده» در اعتبارسنجی خبر تاریخی شامل چه مواردی است؟", options: ["فقط بررسی قدمت کتاب", "بررسی ویژگی‌های هویتی، گرایش فکری و جایگاه علمی راوی", "تطبیق متن با قرآن", "بررسی نوع خط و کاغذ"], correct: 1 }
+                ]
+            },
+            // درس ۲
+            {
+                title: "روش پژوهش در تاریخ",
+                questions: [
+                    { text: "مورخان برای سنجش اعتبار یک خبر تاریخی، ابتدا چه کاری انجام می‌دهند؟", options: ["آن را با سایر کتاب‌ها مقایسه می‌کنند", "به نقد راوی و منبع خبر می‌پردازند", "به محل رویداد سفر می‌کنند", "از باستان‌شناسان کمک می‌گیرند"], correct: 1 },
+                    { text: "چرا مسعودی مورخ بزرگ به سفرهای گسترده می‌رفت؟", options: ["برای دیدار با پادشاهان", "برای تجارت", "برای بررسی درستی یا نادرستی اخبار و مشاهده مستقیم مکان رویدادها", "برای ترویج اسلام"], correct: 2 },
+                    { text: "کدام خبر از ارزش و اعتبار بیشتری برخوردار است؟", options: ["خبری که در کتاب‌های بیشتری آمده باشد", "خبری که راوی آن خود مستقیماً شاهد رویداد بوده باشد", "خبری که قدیمی‌تر باشد", "خبری که با خواسته مردم هماهنگ باشد"], correct: 1 },
+                    { text: "بیهقی در تاریخ خود چه شرط اصلی برای پذیرش یک خبر ذکر می‌کند؟", options: ["مطابقت با قرآن", "گوینده باید ثقه و راستگو باشد و خرد نیز به درستی آن گواهی دهد", "تأیید خلیفه", "وجود حداقل سه سند متنی"], correct: 1 },
+                    { text: "در «تاریخ‌نگاری روایی» مورخ چه روشی را دنبال می‌کند؟", options: ["روایت‌های مختلف را با هم ترکیب می‌کند", "تنها روایت‌های موثق را ذکر می‌کند", "روایت‌های مختلف را بدون دخل و تصرف و با ذکر سند بیان می‌کند", "به تحلیل علل رویدادها می‌پردازد"], correct: 2 },
+                    { text: "«تاریخ‌نگاری ترکیبی» چه ویژگی مهمی دارد؟", options: ["تمام روایت‌ها را بدون گزینش نقل می‌کند", "مورخ با مطالعه و مطابقت همه روایت‌ها، یک گزارش واحد از آنها تنظیم می‌کند", "فقط به تاریخ اسلام می‌پردازد", "روشی است که فقط در قرن اول هجری کاربرد داشت"], correct: 1 },
+                    { text: "کدام یک از مورخان زیر از برجسته‌ترین چهره‌های «تاریخ‌نگاری تحلیلی» محسوب می‌شود؟", options: ["محمد بن جریر طبری", "ابن اسحاق", "بلاذری", "ابوعلی مسکویه"], correct: 3 },
+                    { text: "«مطابقت با عقل» چه جایگاهی در نقد خبر تاریخی دارد؟", options: ["هیچ جایگاهی ندارد و نباید به کار رود", "یکی از مهم‌ترین معیارهای سنجش درستی یا نادرستی گزارش تاریخی است", "فقط در مورد اخبار دینی کاربرد دارد", "روشی است که فقط مورخان معاصر از آن استفاده می‌کنند"], correct: 1 },
+                    { text: "یعقوبی، مقدسی و ابن مسکویه در نقد اخبار به چه اصلی اعتقاد داشتند؟", options: ["عدم مطابقت روایت با عقل را دلیل بر بطلان آن می‌دانستند", "فقط خبر متواتر را می‌پذیرفتند", "هر خبری را بدون نقد می‌پذیرفتند", "فقط اخبار شفاهی را معتبر می‌دانستند"], correct: 0 },
+                    { text: "امروزه بهره‌برداری از کدام دستاوردها در اعتبارسنجی منابع تاریخی رو به افزایش است؟", options: ["فقط از علوم طبیعی", "مطالعات بین‌رشته‌ای و دستاوردهای علوم انسانی مانند جامعه‌شناسی و مردم‌شناسی", "فقط از یافته‌های باستان‌شناسی", "از روش‌های کهن عرب"], correct: 1 }
+                ]
+            },
+            // درس ۳
+            {
+                title: "اسلام در مکه",
+                questions: [
+                    { text: "نظام قبیله‌ای در شبه‌جزیره عربستان پیش از اسلام، چه ویژگی بنیادینی داشت؟", options: ["بر پایه برابری همه قبایل استوار بود", "قبیله یک واحد اجتماعی و سیاسی مستقل با نیای مشترک و پیوند خونی بود", "حکومت مرکزی قدرتمندی بر همه قبایل نظارت می‌کرد", "نظام قبیله‌ای فقط در میان قبایل شمالی رواج داشت"], correct: 1 },
+                    { text: "«تعصب قبیله‌ای» در جامعه جاهلی چه پیامد مهمی داشت؟", options: ["باعث اتحاد همه قبایل عرب شد", "به گسترش تجارت کمک کرد", "موجب تضعیف روحیه جنگاوری شد", "نقش زیادی در بروز جنگ‌ها و خونریزی‌های بی‌امان داشت"], correct: 3 },
+                    { text: "علت اصلی مخالفت و دشمنی سران قریش با پیامبر اسلام چه بود؟", options: ["احساسات دینی و اعتقاد راسخ آنان به بت‌ها", "ترس از دست دادن منافع و موقعیت اجتماعی و اقتصادی خود", "دشمنی شخصی با پیامبر", "پیروی از یهودیان مدینه"], correct: 1 },
+                    { text: "چرا مشرکان پس از گسترش دعوت اسلام، تصمیم گرفتند هر طایفه از مسلمان شدن اعضای خود جلوگیری کند؟", options: ["زیرا از ایجاد جنگ داخلی می‌ترسیدند", "چون پیامبر دستور داده بود", "به دلیل احترام به آزادی عقیده", "چون ابوطالب چنین خواسته بود"], correct: 0 },
+                    { text: "هدف اصلی از محاصره اجتماعی و اقتصادی بنی‌هاشم در شعب ابی‌طالب چه بود؟", options: ["نابودی کامل بنی‌هاشم", "وادار کردن ابوطالب به تنها گذاشتن پیامبر", "گرفتن مالیات از بنی‌هاشم", "وادار کردن بنی‌هاشم به مهاجرت"], correct: 1 },
+                    { text: "واژه «جاهلیت» در قرآن چه معنای مشخصی دارد؟", options: ["نادانی و بی‌سوادی مطلق", "فقدان علم و دانش", "فرهنگ و اخلاق خشن، گستاخ و کینه‌جویی ناشی از تعصب قبیله‌ای", "دوره تاریخی پیش از اسلام"], correct: 2 },
+                    { text: "چرا مشرکان مکه با وجود اعتقاد به «الله» به عنوان آفریننده جهان، بت‌ها را می‌پرستیدند؟", options: ["آنها خدا را قبول نداشتند", "بت‌ها را واسطه‌های تقرب به خدا می‌دانستند (مطابق برداشت از آیه)", "از روی ناچاری بت می‌پرستیدند", "بت‌ها را فرزندان خدا می‌پنداشتند"], correct: 1 },
+                    { text: "چرا پیامبر اسلام در سال پنجم بعثت گروهی از مسلمانان را به حبشه فرستاد؟", options: ["برای تجارت", "برای یافتن متحدان جدید", "برای تبلیغ اسلام", "برای رهانیدن آنان از آزار و شکنجه مشرکان"], correct: 3 },
+                    { text: "چه عاملی زمینه‌ساز هجرت تاریخی پیامبر به یثرب (مدینه) شد؟", options: ["دعوت سران قریش", "پذیرش دعوت پیامبر توسط تعدادی از مردم یثرب در مراسم حج", "ضعیف شدن پیامبر در مکه", "فشار یهودیان مدینه"], correct: 1 },
+                    { text: "پس از رحلت ابوطالب و خدیجه، چه تغییری در وضعیت پیامبر در مکه رخ داد؟", options: ["مشرکان به احترام آنها آزار را قطع کردند", "جسارت و آزار سران قریش نسبت به پیامبر بیشتر شد", "پیامبر مکه را ترک کرد", "مسلمانان قدرت گرفتند"], correct: 1 }
+                ]
+            },
+            // درس ۴
+            {
+                title: "امت و حکومت نبوی در مدینه",
+                questions: [
+                    { text: "مهم‌ترین تفاوت یثرب با مکه در آستانه هجرت، در کدام زمینه بود؟", options: ["در یثرب مرجع سیاسی قدرتمندی برای رسیدگی به اختلافات وجود نداشت و قبایل درگیر بودند", "یثرب شهری ثروتمندتر از مکه بود", "مردم یثرب همگی یهودی بودند", "یثرب روابط تجاری گسترده‌ای با روم داشت"], correct: 0 },
+                    { text: "چرا مردم یثرب نسبت به پذیرش دعوت پیامبر استقبال بیشتری نشان دادند؟", options: ["از تجارت با مکه ناامید شده بودند", "از تفرقه و جنگ‌های پیاپی میان قبایل اوس و خزرج به ستوه آمده بودند", "همه آنان از قبل مسلمان بودند", "پیامبر به آنها وعده ثروت داده بود"], correct: 1 },
+                    { text: "هدف اصلی پیامبر از برقراری «پیمان برادری» میان مهاجر و انصار چه بود؟", options: ["ایجاد وحدت دینی و همدلی بدون توجه به وابستگی‌های قبیله‌ای", "جدا کردن انصار از یهود", "تضعیف قریش", "تشکیل ارتش واحد"], correct: 0 },
+                    { text: "«پیمان‌نامه عمومی مدینه» چه کارکرد اساسی داشت؟", options: ["حقوق و مسئولیت‌های هر یک از گروه‌های مسلمان و غیرمسلمان را مشخص می‌کرد", "فقط روابط مسلمانان را تنظیم می‌کرد", "اعلام جنگ با قریش بود", "قانون ارث را مشخص کرد"], correct: 0 },
+                    { text: "هدف از تغییر قبله از بیت‌المقدس به سوی مکه چه بود؟", options: ["نزدیک شدن به مشرکان", "تضعیف یهود و پاسخ به بهانه‌جویی‌های آنان", "ایجاد مسجد جدید", "جدا شدن از انصار"], correct: 1 },
+                    { text: "منافقان مدینه به رهبری عبدالله بن ابی چه سیاستی در برابر حکومت نبوی داشتند؟", options: ["همکاری کامل با پیامبر", "تشویق یهودیان به مقاومت علیه پیامبر و جدا شدن از سپاه اسلام در جنگ‌ها", "مهاجرت به مکه", "حمایت از مشرکان در جنگ بدر"], correct: 1 },
+                    { text: "چرا پیامبر به جنگ با یهودیان بنی‌نضیر و بنی‌قریظه پرداخت؟", options: ["به دلیل نپرداختن جزیه", "برای گرفتن زمین‌های آنان", "به دلیل پیمان‌شکنی و دسیسه‌گری علیه مسلمانان", "به دلیل خودداری از مسلمان شدن"], correct: 2 },
+                    { text: "«صلح حدیبیه» چه اهمیتی برای مسلمانان داشت؟", options: ["یک شکست بزرگ بود", "قرآن آن را «فتح مبین» نامید و زمینه‌ساز گسترش اسلام شد", "باعث تضعیف مسلمانان شد", "منجر به از دست رفتن مکه شد"], correct: 1 },
+                    { text: "هدف اصلی پیامبر از ارسال نامه به پادشاهان ایران و روم چه بود؟", options: ["دعوت آنان به اسلام", "اعلام جنگ", "درخواست کمک مالی", "عقد پیمان تجاری"], correct: 0 },
+                    { text: "در حکومت نبوی، هزینه تأمین جنگ‌افزارها چگونه تأمین می‌شد؟", options: ["از بیت‌المال به طور کامل", "به عهده خود جنگاوران بود", "از طریق جزیه", "توسط انصار پرداخت می‌شد"], correct: 1 }
+                ]
+            },
+            // درس ۵
+            {
+                title: "تثبیت و گسترش اسلام در دوران خلفای نخستین",
+                questions: [
+                    { text: "مهم‌ترین مسئله مورد اختلاف در «سقیفه بنی‌ساعده» چه بود؟", options: ["چگونگی تقسیم بیت‌المال", "تعیین جانشین پیامبر از میان مهاجر یا انصار", "چگونگی ادامه فتوحات", "برخورد با مرتدان"], correct: 1 },
+                    { text: "ابوبکر برای توجیه شایستگی مهاجران برای خلافت، به چه معیاری استناد کرد؟", options: ["ثروت بیشتر", "قدرت نظامی بالاتر", "تعداد جمعیت بیشتر", "خویشاوندی با پیامبر و سبقت در ایمان و یاری او"], correct: 3 },
+                    { text: "«جنگ‌های رده» در زمان ابوبکر به چه علت روی داد؟", options: ["حمله رومیان به مرزها", "خروج گروه‌هایی از قبایل عرب از اسلام و سرپیچی از پرداخت زکات", "شورش ایرانیان", "اختلاف میان مهاجر و انصار"], correct: 1 },
+                    { text: "کدام اقدام خلیفه دوم (عمر) در مورد سرزمین‌های فتح شده (سواد) سرنوشت‌ساز بود؟", options: ["تقسیم آن بین جنگجویان", "خودداری از تقسیم املاک و واگذاری آن به دهقانان در ازای پرداخت خراج", "فروش زمین‌ها به مردم", "اهدای زمین‌ها به خاندان اموی"], correct: 1 },
+                    { text: "چه تفاوتی اساسی در روش توزیع بیت‌المال میان عمر و عثمان وجود داشت؟", options: ["عمر اموال را به نفع امویان توزیع می‌کرد، عثمان بر اساس مساوات", "عمر به غیرعرب‌ها بیشتر می‌داد", "هر دو یکسان عمل می‌کردند", "عمر اموال را بر اساس سابقه در اسلام و به طور محدود توزیع می‌کرد، عثمان بذل و بخشش‌های گسترده‌ای به خویشان خود (بنی‌امیه) داشت"], correct: 3 },
+                    { text: "علت اصلی شورش مردم بر ضد خلیفه سوم (عثمان) چه بود؟", options: ["شکست در جنگ‌ها", "به کار گماشتن خویشان اموی و بذل و بخشش‌های بی‌رویه بیت‌المال به آنان", "تغییر پایتخت", "تبعیض علیه عرب‌ها"], correct: 1 },
+                    { text: "امام علی (ع) چه روشی را در تقسیم بیت‌المال در پیش گرفت که موجب اعتراض برخی مانند طلحه و زبیر شد؟", options: ["تقسیم مساوی میان همه مسلمانان (عرب و غیرعرب، سیاه و سفید، برده و آزاد)", "برتری دادن قریش بر دیگران", "سهمیه بیشتر برای مهاجر و انصار", "اختصاص همه اموال به بیت‌المال مدینه"], correct: 0 },
+                    { text: "چرا امام علی (ع) پیشنهاد طلحه و زبیر برای برتری دادن عرب و قریش در تقسیم بیت‌المال را نپذیرفت؟", options: ["چون آنها را دشمن می‌دانست", "به دلیل کمبود بودجه", "زیرا این کار را ستمگرانه می‌دانست و هیچ برتری برای فرزندان اسماعیل بر فرزندان اسحاق قائل نبود", "چون خلیفه قبل چنین نکرده بود"], correct: 2 },
+                    { text: "مهم‌ترین عامل موفقیت مسلمانان در فتح شام و مصر چه بود؟", options: ["ضعف شدید نظامی روم", "نارضایتی مردم بومی از سیاست‌های امپراتوری روم شرقی (مالیات سنگین و اختلافات مذهبی)", "کمک‌های مالی ایران", "خیانت فرماندهان رومی"], correct: 1 },
+                    { text: "«جزیه» چه ماهیتی داشت و به چه کسانی تعلق می‌گرفت؟", options: ["مالیات سالانه برای همه مسلمانان", "مالیات بر زمین‌های کشاورزی", "مالیات سرانه از پیروان اهل کتاب (یهودی، مسیحی، زرتشتی) در برابر تأمین امنیت و معافیت از جنگ", "غنیمت‌های جنگی"], correct: 2 }
+                ]
+            },
+            // درس ۶
+            {
+                title: "امویان بر مسند قدرت",
+                questions: [
+                    { text: "مهم‌ترین تحول منفی در ساختار حکومت با روی کار آمدن بنی‌امیه چه بود؟", options: ["توسعه نیافتن قلمرو", "فاصله گرفتن حکومت از اصول و ارزش‌های اسلامی و تبدیل خلافت دینی به سلطنت", "تضعیف ارتش", "رواج زبان فارسی"], correct: 1 },
+                    { text: "معاویه چگونه توانست از شکست در جنگ صفین نجات یابد؟", options: ["با حیله و نیرنگ عمرو عاص (قرآن‌ها بر سر نیزه کردن)", "با حمله غافلگیرانه", "با کمک ایرانیان", "با میانجی‌گری انصار"], correct: 0 },
+                    { text: "معاویه چه ترفندی را برای کسب مشروعیت و جلب افکار عمومی به کار برد؟", options: ["خود را طرفدار علی (ع) نشان داد", "خود را خون‌خواه عثمان معرفی کرد در حالی که از کمک به او خودداری کرده بود", "با خلفای راشدین بیعت کرد", "خلافت را به شورا واگذار کرد"], correct: 1 },
+                    { text: "«عرب‌گرایی» امویان چه تأثیری بر مسلمانان غیرعرب (موالی) داشت؟", options: ["موجب برابری کامل آنان با اعراب شد", "باعث تحقیر و تبعیض آنان و محرومیت از برخی حقوق سیاسی و اجتماعی شد", "آنان را به مناصب عالی گماردند", "موجب مهاجرت آنان به ایران شد"], correct: 1 },
+                    { text: "چرا خاندان بنی‌امیه به «طلقاء» مشهور شدند؟", options: ["به دلیل علم زیاد", "چون از مکه تبعید شده بودند", "به دلیل شجاعت در جنگ", "زیرا پس از فتح مکه، پیامبر آنان را بخشید و فرمود «بروید که شما آزاد شدگانید»"], correct: 3 },
+                    { text: "هدف اصلی معاویه و برخی طرفدارانش از ترویج «تفکر جبرگرایی» چه بود؟", options: ["ترویج علم و دانش", "وادار کردن مردم به پذیرش حکومت امویان به عنوان تقدیر الهی و جلوگیری از مقاومت در برابر آن", "تضعیف باورهای دینی", "تقویت اراده مردم"], correct: 1 },
+                    { text: "کدام خلیفه اموی شیوه‌ای متفاوت در پیش گرفت و دستور به توقف فتوحات و منع جزیه از نومسلمانان داد؟", options: ["معاویه", "یزید", "عمر بن عبدالعزیز", "مروان بن حکم"], correct: 2 },
+                    { text: "مهم‌ترین پیامد قیام امام حسین (ع) در کوتاه‌مدت چه بود؟", options: ["سلب مشروعیت دینی از حکومت یزید و توقف روند نابودی اسلام", "تشکیل حکومت شیعی", "نابودی کامل بنی‌امیه", "آزادی کربلا"], correct: 0 },
+                    { text: "ایرانیان در قیام‌های ضد اموی چه نقشی ایفا کردند؟", options: ["نقشی نداشتند", "در قیام مختار به عنوان «موالی» حضور چشمگیری داشتند", "همگی از بنی‌امیه حمایت کردند", "فقط در جنگ‌های صفین شرکت کردند"], correct: 1 },
+                    { text: "چرا دعوت عباسیان در خراسان با موفقیت روبه‌رو شد؟", options: ["زیرا خراسان ثروتمندترین منطقه بود", "به دلیل وجود درگیری‌های قبیله‌ای عرب و نارضایتی از امویان و همچنین تبلیغات زیرکانه داعیان عباسی با شعار «ال محمد»", "به دلیل حمایت خلفای اموی", "چون مردم خراسان از نسل عباس بودند"], correct: 1 }
+                ]
+            },
+            // درس ۷
+            {
+                title: "جهان اسلام در عصر خلافت عباسی",
+                questions: [
+                    { text: "مهم‌ترین تفاوت سیاست عباسیان با امویان در قبال ایرانیان چه بود؟", options: ["ادامه سیاست عرب‌گرایی", "اجتناب از عرب‌گرایی و برخورداری ایرانیان از جایگاه ممتاز در حکومت", "اخراج ایرانیان از دستگاه خلافت", "محدود کردن ایرانیان به مشاغل پایین"], correct: 1 },
+                    { text: "منصور دومین خلیفه عباسی، ابومسلم خراسانی را به چه دلیل کشت؟", options: ["به دلیل نگرانی از نفوذ و قدرت فراوان او", "به خاطر دشمنی شخصی", "چون ابومسلم قیام کرده بود", "به دلیل خیانت ابومسلم"], correct: 0 },
+                    { text: "منصور عباسی پایتخت خود را در کجا و بر اساس چه الگویی بنا کرد؟", options: ["در دمشق، بر اساس الگوی شهرسازی رومی", "در کوفه، بر اساس الگوی شهرهای عربی", "در بغداد، نزدیک تیسفون و بر اساس سنت شهرسازی ایران باستان", "در سامرا، بر اساس معماری بیزانسی"], correct: 2 },
+                    { text: "مهم‌ترین علت ضعف و تجزیه خلافت عباسی در دوره دوم چه بود؟", options: ["حمله مغول", "بیماری خلفا", "قیام‌های علویان", "قدرت گرفتن فرماندهان ترک (امیرالامرا) و تسلط آنان بر خلفا"], correct: 3 },
+                    { text: "«بیت‌الحکمه» در بغداد چه کارکردهای مهمی داشت؟", options: ["فقط یک کتابخانه ساده بود", "مرکز ترجمه، تألیف، گفت‌وگوی علمی و تبادل افکار بود", "محل زندگی خلیفه بود", "پادگان نظامی بود"], correct: 1 },
+                    { text: "نهضت ترجمه چه تأثیری بر تمدن اسلامی داشت؟", options: ["تأثیر بسیار زیادی در پیشرفت‌های علمی و فکری و شکوفایی تمدنی مسلمانان داشت", "تأثیر کمی داشت", "فقط به ترجمه کتاب‌های یونانی محدود شد", "موجب تضعیف زبان عربی شد"], correct: 0 },
+                    { text: "مأمون عباسی چه هدفی از دعوت امام رضا (ع) به خراسان و پذیرش ولایتعهدی داشت؟", options: ["کسب حمایت شیعیان، مهار قیام‌های علویان و جلب اعتماد خراسانیان", "علاقه شخصی به امام", "واگذاری کامل خلافت به امام", "دور کردن امام از مدینه"], correct: 0 },
+                    { text: "خلفای فاطمی در رقابت با عباسیان از چه ابزاری بیش از همه بهره می‌بردند؟", options: ["جنگ نظامی مداوم", "فرستادن داعیان (مبلغان) به سرزمین‌های دور و نزدیک برای گسترش دعوت اسماعیلی", "اتحاد با رومیان", "بی‌توجهی به تبلیغات"], correct: 1 },
+                    { text: "دانشگاه «الازهر» در قاهره توسط چه کسانی و با چه هدفی تأسیس شد؟", options: ["توسط صلاح‌الدین ایوبی برای ترویج اهل سنت", "توسط فاطمیان برای تربیت عالمان و داعیان اسماعیلی", "توسط عباسیان برای رقابت با بغداد", "توسط ممالیک برای آموزش نظامی"], correct: 1 },
+                    { text: "چه عاملی باعث دوام خلافت عباسی علیرغم ضعف قدرت سیاسی و نظامی خلفا شد؟", options: ["حمایت مغولان", "قدرت نظامی بالای خلفا", "احترام و جایگاه دینی خلفا که برای مشروعیت حاکمان ضروری بود", "ثروت عظیم آنان"], correct: 2 }
+                ]
+            },
+            // درس ۸
+            {
+                title: "اسلام در ایران؛ زمینه‌های ظهور تمدن ایرانی ـ اسلامی",
+                questions: [
+                    { text: "مهم‌ترین عوامل داخلی ضعف حکومت ساسانی در آستانه حمله اعراب چه بود؟", options: ["حمله رومیان", "جنگ‌های طولانی با روم و اقوام شرقی، اختلاف بزرگان، مشکلات اجتماعی و شیوع طاعون", "قیام دهقانان", "خشکسالی شدید"], correct: 1 },
+                    { text: "نخستین گروه ایرانی که پس از سلمان فارسی مسلمان شدند، چه کسانی بودند؟", options: ["دهقانان خراسان", "موبدان زرتشتی", "ایرانیان یمن به رهبری باذان پس از شنیدن خبر قتل خسروپرویز از پیامبر", "سپاهیان مدائن"], correct: 2 },
+                    { text: "خلیفه دوم (عمر) پس از فتح سواد (عراق) چه تصمیم مهمی در مورد زمین‌های آن منطقه گرفت که برخلاف رویه معمول در جنگ‌ها بود؟", options: ["آنها را بین جنگجویان تقسیم کرد", "زمین‌ها را به آتش کشید", "از تقسیم آن بین جنگجویان خودداری کرد و دهقانان را بر زمین‌ها باقی گذاشت تا در ازای پرداخت خراج کشاورزی کنند", "زمین‌ها را به ایرانیان مهاجر داد"], correct: 2 },
+                    { text: "در قراردادهای صلح میان ایرانیان و اعراب مسلمان مانند صلح‌نامه ری و آذربایجان، اعراب چه تعهداتی به ایرانیان می‌دادند؟", options: ["پرداخت پول به ایرانیان", "عدم کشتن، عدم اسارت، عدم ویران کردن آتشکده‌ها و عدم بازداشتن از انجام مراسم دینی", "واگذاری حکومت به ایرانیان", "خروج فوری از منطقه"], correct: 1 },
+                    { text: "مهاجرت گسترده اعراب به ایران در دوره امویان چه پیامد مهمی داشت؟", options: ["زمینه‌ساز آشنایی تدریجی ایرانیان با اسلام و همچنین جذب مهاجران در فرهنگ ایرانی شد", "باعث افزایش جمعیت ایران نشد", "باعث نابودی کامل فرهنگ ایرانی شد", "منجر به تشکیل حکومت مستقل عربی در ایران شد"], correct: 0 },
+                    { text: "«جنبش شعوبیه» در واکنش به چه چیزی شکل گرفت و چه هدفی داشت؟", options: ["حمایت از امویان", "مخالفت با سیاست تعصب و تفاخرطلبی قومی و قبیله‌ای امویان و تأکید بر برابری اقوام با استناد به قرآن", "ترویج زبان عربی", "کسب قدرت سیاسی"], correct: 1 },
+                    { text: "چه عواملی باعث شتاب گرفتن گرایش ایرانیان به اسلام در عصر عباسیان شد؟", options: ["فشار و اجبار اعراب", "مهاجرت اعراب", "از بین رفتن دین زرتشت", "بهبود موقعیت سیاسی و اجتماعی ایرانیان در این دوره"], correct: 3 },
+                    { text: "روند اسلام‌پذیری ایرانیان چگونه بود؟", options: ["بسیار سریع و همزمان با فتوحات", "فقط در دوره امویان انجام شد", "هرگز کامل نشد", "تدریجی و چندین قرنه"], correct: 3 },
+                    { text: "پس از فتح ایران، اعراب مسلمان چه سیاستی در اداره امور دیوانی (مالی و اداری) در پیش گرفتند؟", options: ["تمام دیوانیان عرب را جایگزین ایرانیان کردند", "به دلیل نداشتن تجربه، اداره امور دیوانی را همچنان به ایرانیان واگذار کردند", "تمام دیوان‌ها را تعطیل کردند", "دیوان‌ها را به شام منتقل کردند"], correct: 1 },
+                    { text: "مهم‌ترین پیامد اجتماعی و مذهبی هجوم مغول که در درس بعدی به آن اشاره شده، در این درس چه زمینه‌ای داشت؟", options: ["تضعیف اسلام", "گسترش تصوف و تشیع و پیوند آن دو", "تقویت خلافت عباسی", "اتحاد ادیان"], correct: 1 }
+                ]
+            },
+            // درس ۹
+            {
+                title: "ظهور و گسترش تمدن ایرانی ـ اسلامی",
+                questions: [
+                    { text: "خاستگاه اجتماعی بنیان‌گذاران سلسله‌های طاهریان و سامانیان چه بود؟", options: ["از میان عیاران و مردم عادی", "از خاندان‌های کهن دهقانی و زمین‌داران منطقه خراسان و ماوراءالنهر", "از سادات علوی", "از ترکان مهاجر"], correct: 1 },
+                    { text: "یعقوب لیث صفاری فعالیت اجتماعی و سیاسی خود را چگونه آغاز کرد؟", options: ["با پیوستن به دستگاه خلافت", "با شرکت در گروه «عیاران» و جوانمردان سیستان و جنگ علیه خوارج", "با کمک خاندان طاهری", "با لشکرکشی به بغداد"], correct: 1 },
+                    { text: "چه تفاوت مهمی در شیوه کسب قدرت میان سامانیان و آل‌بویه وجود داشت؟", options: ["سامانیان با فرمان خلیفه به قدرت رسیدند، آل‌بویه بدون اجازه خلیفه و با قدرت نظامی", "هر دو با کودتا به قدرت رسیدند", "آل‌بویه با فرمان خلیفه به قدرت رسیدند", "سامانیان شیعه بودند"], correct: 0 },
+                    { text: "امیران آل‌بویه پس از فتح بغداد، چرا خلافت عباسی را از بین نبردند؟", options: ["به دلیل ضعف نظامی", "برای حفظ مشروعیت حکومت خود نزد مردم و حفظ حرمت خلافت", "به دستور خلیفه", "چون خود را خلیفه می‌دانستند"], correct: 1 },
+                    { text: "مهم‌ترین پیامد سیاسی ظهور حکومت‌های ایرانی در سده‌های سوم تا پنجم چه بود؟", options: ["تقویت خلافت عباسی", "کاهش و زوال تدریجی سلطه سیاسی-نظامی خلفای عباسی بر ایران", "تجزیه کامل ایران", "نابودی زبان فارسی"], correct: 1 },
+                    { text: "چه عاملی باعث رونق اقتصادی و رشد شهرنشینی در زمان سامانیان و آل‌بویه شد؟", options: ["حمله مغول", "تجارت با اروپا", "کشف معادن جدید", "برقراری آرامش نسبی، وجود امیران و وزیران با تدبیر و علاقه‌مند به عمران"], correct: 3 },
+                    { text: "یعقوب لیث صفاری چه نقشی در احیای زبان فارسی داشت؟", options: ["با آن مخالف بود", "شاعران را به سرودن شعر فارسی تشویق می‌کرد", "دستور داد تمام کتاب‌ها به عربی ترجمه شود", "به این موضوع بی‌توجه بود"], correct: 1 },
+                    { text: "کتاب «شفا» اثر ابن‌سینا چه ویژگی مهمی دارد؟", options: ["یک رمان تاریخی است", "فقط به علم طب اختصاص دارد", "یکی از بزرگ‌ترین دائرةالمعارف‌های علمی است که به فلسفه، علوم طبیعی و ریاضی می‌پردازد", "اولین کتاب به زبان فارسی است"], correct: 2 },
+                    { text: "چرا قرن‌های چهارم تا هفتم هجری را دوران توسعه زبان و ادبیات فارسی می‌دانند؟", options: ["به دلیل منع زبان عربی", "به دلیل تلاش دیوان‌سالاران ایرانی برای تبدیل زبان اداری به فارسی و تمایل دانشمندان به نگارش آثار خود به فارسی", "به دلیل حمایت خلفای عباسی", "به دلیل مهاجرت شاعران عرب"], correct: 1 },
+                    { text: "دریانوردان و بازرگانان ایرانی در سده‌های سوم تا پنجم هجری، تجارت دریایی خود را با کدام مناطق گسترش دادند؟", options: ["فقط با اروپا", "با هندوستان، چین، جنوب شرقی آسیا و حوزه شرق آفریقا", "فقط با شام و مصر", "با قاره آمریکا"], correct: 1 }
+                ]
+            },
+            // درس ۱۰
+            {
+                title: "ایران در دوران غزنوی، سلجوقی و خوارزمشاهی",
+                questions: [
+                    { text: "سلطان محمود غزنوی بسیاری از اقدامات سیاسی-مذهبی خود مانند حمله به ری را در پوشش چه چیزی انجام می‌داد؟", options: ["کسب درآمد", "جهاد در راه خدا (غزا) و به بهانه مبارزه با مخالفان خلافت عباسی", "گسترش تشیع", "اتحاد با آل‌بویه"], correct: 1 },
+                    { text: "مهم‌ترین عامل سقوط سریع غزنویان در برابر سلجوقیان چه بود؟", options: ["قدرت بالای نظامی سلجوقیان", "مرگ سلطان محمود", "کمک خلیفه به سلجوقیان", "نارضایتی مردم خراسان از فشار مالیاتی غزنویان که باعث شد دروازه شهرها را به روی سلجوقیان بگشایند"], correct: 3 },
+                    { text: "سلجوقیان پس از ورود به بغداد، خلیفه عباسی را از تسلط کدام سلسله نجات دادند؟", options: ["غزنویان", "آل‌بویه", "خوارزمشاهیان", "فاطمیان"], correct: 1 },
+                    { text: "مهم‌ترین چالش خواجه نظام‌الملک در نظام اداری سلجوقی چه بود؟", options: ["مقابله با نیروی سرکش امیران و نظامیان وفادار به سنت‌های قبیله‌ای (تقابل اهل قلم و اهل شمشیر)", "کمبود بودجه", "مخالفت خلیفه", "قیام‌های خوارج"], correct: 0 },
+                    { text: "«اتابکان» در دوره سلجوقی چه کسانی بودند و در دوران ضعف سلجوقیان چه کردند؟", options: ["سرپرستان شاهزادگان سلجوقی که بعدها خود در منطقه تحت سرپرستی، حکومت مستقلی تشکیل دادند", "فرماندهان لشکر که همیشه وفادار ماندند", "قضات دادگستری", "وزیران دربار"], correct: 0 },
+                    { text: "علت اصلی دشمنی و درگیری میان سلطان محمد خوارزمشاه و خلیفه عباسی چه بود؟", options: ["اختلافات مرزی", "خودداری خلیفه از تأیید حکومت خوارزمشاه و تلاش او برای احیای قدرت سیاسی خود", "حمله مغول", "اختلافات مذهبی"], correct: 1 },
+                    { text: "در دوره سلجوقی، چه طبقه اجتماعی به دلیل رشد شهرنشینی و تجارت بیش از پیش اهمیت یافت؟", options: ["دهقانان", "روحانیون", "طبقه بازرگان شهری", "اشراف نظامی"], correct: 2 },
+                    { text: "«نظام اقطاع» که توسط نظام‌الملک توسعه یافت، چه تأثیری در بلندمدت بر حکومت سلجوقی داشت؟", options: ["باعث تقویت همیشگی آن شد", "به دلیل تمایل صاحبان اقطاع به استقلال، زمینه‌ساز جدایی مناطق و تضعیف حکومت شد", "هیچ تأثیری نداشت", "موجب افزایش درآمد دولت شد"], correct: 1 },
+                    { text: "اسماعیلیان ایران در دوره سلجوقی برای مقابله با آنان از چه روش‌هایی استفاده می‌کردند؟", options: ["ایجاد دژهای مستحکم در مناطق کوهستانی و مبارزات نظامی و فعالیت‌های فرهنگی برای جذب مردم", "فقط جنگ مستقیم", "اتحاد با عباسیان", "مهاجرت به مصر"], correct: 0 },
+                    { text: "هنر سفالگری در دوره سلجوقی چه تحولی یافت؟", options: ["با استفاده از نقوش جانوری و گیاهی توسعه یافت و مراکز آن از شرق به مناطق مرکزی (کاشان) منتقل شد", "به کلی منسوخ شد", "فقط در سمرقند رواج داشت", "کیفیت آن نسبت به دوره سامانی بهتر شد"], correct: 0 }
+                ]
+            },
+            // درس ۱۱
+            {
+                title: "حکومت، جامعه و اقتصاد در عصر مغول ـ تیموری",
+                questions: [
+                    { text: "هجوم مغول به ایران چه ویژگی‌ای داشت که آن را از سایر تهاجمات متمایز می‌کرد؟", options: ["فقط با هدف تجارت بود", "فاقد ماهیت فکری و فرهنگی بود و با کشتار جمعیت، ویرانی شهرها و نابودی زیرساخت‌ها همراه بود", "به دعوت ایرانیان انجام شد", "باعث پیشرفت علم شد"], correct: 1 },
+                    { text: "چرا مغولان در ابتدا از شهر و شهرنشینی دوری می‌گزیدند؟", options: ["به دلیل توصیه «یاسا» و عدم پایبندی به اصول زندگی یکجانشینی", "به دلیل کمبود جمعیت", "به دستور چینی‌ها", "به دلیل علاقه به دریا"], correct: 0 },
+                    { text: "نقش بزرگان ایرانی (مانند خواجه نصیرالدین توسی و جوینی) در دوره نامسلمانی مغول چه بود؟", options: ["جنگ با مغولان", "تلاش برای مهار خشونت مغولان، آشنا کردن آنان با فرهنگ ایرانی و آداب کشورداری و زمینه‌سازی برای مسلمان شدن آنان", "فرار از ایران", "همکاری کامل با ویرانگری"], correct: 1 },
+                    { text: "مسلمان شدن غازان خان چه پیامد مهمی برای ایران داشت؟", options: ["استقلال کامل از مغولان", "تغییر پایتخت", "اتحاد با ممالیک مصر", "آغاز دوره مسلمانی ایلخانان و انجام اصلاحات گسترده در عرصه‌های سیاسی، اقتصادی و اجتماعی"], correct: 3 },
+                    { text: "«قیام سربداران» در سبزوار با چه شعاری آغاز شد و رهبران آن تحت تأثیر چه کسانی بودند؟", options: ["شعار آزادی خواهی و تحت تأثیر اسماعیلیان", "شعار «سر به دار می‌دهیم، تن به ذلت نمی‌دهیم» و تحت تأثیر مشایخ صوفی مبارزی چون شیخ خلیفه و شیخ حسن جوری", "شعار طرفداری از خلیفه", "شعار برقراری عدالت و تحت تأثیر مغولان"], correct: 1 },
+                    { text: "کدام قشر اجتماعی در عصر مغول-تیموری از زندگی بهتری نسبت به بقیه برخوردار بودند؟", options: ["کشاورزان", "بازاریان و صنعتگران (اقتصاد شهری و تجاری)", "دامداران", "روستاییان"], correct: 1 },
+                    { text: "پس از مسلمان شدن مغولان، چه تغییراتی در نظام حقوقی و قضایی ایران رخ داد؟", options: ["یاسا همچنان به قوت خود باقی ماند", "یاسا و سنت‌های مغولی تا حد زیادی از رونق افتاد و قوانین شرعی و عرفی مبنای زندگی اجتماعی و داوری حقوقی شد", "تنها قوانین مغولی اجرا می‌شد", "هیچ قانونی اجرا نمی‌شد"], correct: 1 },
+                    { text: "کشاورزی در ایران در دوره ایلخانان چه سرنوشتی یافت؟", options: ["به دلیل حمایت مغولان رونق گرفت", "به طور کامل نابود شد", "هیچ تغییری نکرد", "در اثر هجوم اولیه آسیب شدید دید، اما پس از اصلاحات غازان خان تا حدی بهبود یافت"], correct: 3 },
+                    { text: "تیمور چه سیاستی در مورد شهرسازی و هنرمندان داشت؟", options: ["با آنها دشمنی می‌کرد", "هنرمندان و صنعتگران شهرهای فتح شده را به سمرقند می‌فرستاد تا در آبادانی آن بکوشند", "به شهرسازی بی‌توجه بود", "فقط به ویرانگری می‌پرداخت"], correct: 1 },
+                    { text: "«چاو» که در زمان گیخاتو رواج یافت، چه بود؟", options: ["نوعی سلاح", "یک مقام اداری", "پول کاغذی", "یک نوع مالیات"], correct: 2 }
+                ]
+            },
+            // درس ۱۲
+            {
+                title: "فرهنگ و هنر در عصر مغول ـ تیموری",
+                questions: [
+                    { text: "چه عاملی باعث روی آوردن مردم به تصوف در عصر مغول شد؟", options: ["حمایت مغولان از صوفیان", "هجوم ویرانگر مغول و ناامیدی ناشی از آن", "قدرت گرفتن فقها", "مهاجرت صوفیان از هند"], correct: 1 },
+                    { text: "مغولان در آغاز به چه آیینی اعتقاد داشتند و چه ویژگی دینی مهمی داشتند؟", options: ["به آیین «شمنی» اعتقاد داشتند و در مسائل دینی تعصب نداشتند و با پیروان ادیان دیگر با مدارا برخورد می‌کردند", "به آیین بودا اعتقاد داشتند و بسیار متعصب بودند", "مسلمان بودند", "مسیحی بودند"], correct: 0 },
+                    { text: "چرا تسامح و تساهل دینی مغولان به نفع مسلمان شدن آنان تمام شد؟", options: ["چون خودشان به دنبال دین بودند", "زیرا بزرگان ایرانی از این فرصت برای تبلیغ اسلام و مسلمان کردن ایلخانان بهره بردند", "به دلیل فشار پاپ", "به خاطر شکست در جنگ‌ها"], correct: 1 },
+                    { text: "مهم‌ترین نتیجه مسلمان شدن مغولان چه بود؟", options: ["اخراج آنان از ایران", "هم‌نوایی دین و دولت، غلبه شریعت بر یاسا و ماهیت ایرانی-اسلامی یافتن حکومت ایلخانی", "تضعیف ایرانیان", "نابودی اسلام"], correct: 1 },
+                    { text: "نگارگری در عصر ایلخانان چه ویژگی جدیدی یافت؟", options: ["فقط به کشیدن چهره مغولان محدود شد", "از بین رفت", "تلفیقی از سنت‌های نقاشی ایرانی و چینی بود و بیشتر در کتاب‌آرایی و مصورسازی کتاب‌ها به کار رفت", "تقلیدی صرف از نقاشی بیزانسی بود"], correct: 2 },
+                    { text: "کدام شاهزاده و هنرمند تیموری نقش مهمی در خلق «شاهنامه بایسنقری» داشت؟", options: ["شاهرخ", "بایسنقر میرزا", "الغ‌بیگ", "حسین بایقرا"], correct: 1 },
+                    { text: "نقش امیرعلیشیر نوایی در شکوفایی هنر عصر تیموری چه بود؟", options: ["خود نقاش بزرگی بود", "به عنوان وزیر، حامی و مشوق جدی هنر و هنرمندان بود", "کتابخانه بزرگ ساخت", "فرمان ساخت مسجد داد"], correct: 1 },
+                    { text: "معماری عصر ایلخانی و تیموری چه ویژگی‌های بارزی داشت؟", options: ["ساخت بناهای کوچک و بی‌تزئین", "استفاده نکردن از آجر و کاشی", "تقلید از معماری یونان", "ایجاد بناهای عظیم، گنبدها و مناره‌های بلند و تزئین با گچ‌بری و کاشی‌کاری"], correct: 3 },
+                    { text: "چرا تاریخ‌نگاری به زبان فارسی در عهد ایلخانان رشد چشمگیری یافت؟", options: ["به دلیل علاقه ایلخانان به ثبت کشورگشایی‌های خود و خودآگاهی رجال ایرانی", "به دلیل منع زبان عربی", "چون همه مردم بی‌سواد بودند", "به دلیل مهاجرت مورخان عرب"], correct: 0 },
+                    { text: "«غیاث‌الدین جمشید کاشانی» که بود و چه کرد؟", options: ["ریاضی‌دان و منجم بزرگی که عدد پی را با دقت محاسبه کرد و ابزار رصدی «طبق المناطق» را اختراع کرد", "شاعر بزرگ عصر تیموری", "وزیر شاهرخ", "نقاش مکتب هرات"], correct: 0 }
+                ]
+            },
+            // درس ۱۳
+            {
+                title: "تحولات سیاسی و اقتصادی ایران در دوره صفوی",
+                questions: [
+                    { text: "طریقت صفوی در قرن نهم هجری تحت تأثیر چه شرایطی از یک طریقت صوفیانه به یک جنبش سیاسی-مذهبی تبدیل شد؟", options: ["حمایت مغولان", "شرایط فکری و فرهنگی جامعه ایران و تمایل مشایخ صفوی به فعالیت‌های سیاسی و نظامی", "فشار عثمانی", "مهاجرت به آناتولی"], correct: 1 },
+                    { text: "پیروان شیخ حیدر به چه دلیل «قزلباش» نامیده شدند؟", options: ["به دلیل شجاعت زیاد", "به دلیل زندگی در قزل‌ایچال", "به دلیل اینکه به فرمان او کلاه قرمز دوازده ترک بر سر می‌نهادند", "به دلیل چشم و موی سرخ"], correct: 2 },
+                    { text: "مهم‌ترین اقدام شاه اسماعیل اول پس از تاج‌گذاری در تبریز چه بود و چه پیامدی داشت؟", options: ["جنگ با عثمانی که باعث تضعیف صفویان شد", "انتقال پایتخت به قزوین", "رسمی کردن مذهب شیعه دوازده امامی که باعث اتحاد شیعیان و تمایز ایران از همسایگان سنی مذهب شد", "اصلاحات اقتصادی"], correct: 2 },
+                    { text: "دلیل واقعی سلطان سلیم عثمانی برای لشکرکشی به ایران و جنگ چالدران چه بود؟", options: ["فعالیت مریدان صفوی در قلمرو عثمانی", "نگرانی و ترس از ایجاد حکومت قدرتمند صفوی در ایران به عنوان مانعی برای توسعه‌طلبی عثمانی", "اختلافات مرزی", "دعوت ازبکان"], correct: 1 },
+                    { text: "شاه تهماسب اول برای کاهش توان سیاسی و نظامی امیران قزلباش و مقابله با عثمانی چه تدابیری اندیشید؟", options: ["انتقال پایتخت به قزوین و به کارگیری سیاست «زمین سوخته» و ایجاد سپاه دائمی از غلامان گرجی", "آنان را به طور کلی حذف کرد", "با آنان متحد شد", "به عثمانی پناه برد"], correct: 0 },
+                    { text: "شاه عباس اول چه اقدام مهمی برای ایجاد سپاهی قدرتمند و مطیع خود انجام داد؟", options: ["سپاهی دائمی و حرفه‌ای از جوانان گرجی، ارمنی و چرکسی (غلامان) ایجاد کرد و به تجهیز آن با تفنگ و توپخانه پرداخت", "به قزلباشان قدرت بیشتری داد", "از عثمانی کمک نظامی گرفت", "سپاه را منحل کرد"], correct: 0 },
+                    { text: "چرا شاه عباس اول پایتخت را از قزوین به اصفهان منتقل کرد؟", options: ["به دلیل آب و هوای بهتر", "به دلایل سیاسی، نظامی و اقتصادی و برای آبادانی این شهر", "به دلیل نزدیکی به عثمانی", "به دلیل شورش در قزوین"], correct: 1 },
+                    { text: "چرا حکومت صفوی که دو قرن در برابر عثمانی ایستادگی کرد، در برابر شورش افغان‌ها سقوط کرد؟", options: ["قدرت بالای افغان‌ها", "به دلیل ضعف و انحطاط داخلی حکومت صفوی در اواخر دوره، بی‌لیاقتی شاه سلطان حسین و نفوذ حرم‌سرا", "کمک عثمانی به افغان‌ها", "خیانت قزلباشان"], correct: 1 },
+                    { text: "روابط ایران و عثمانی در دوره صفوی عمدتاً بر چه پایه‌ای استوار بود؟", options: ["دوستی و اتحاد", "دشمنی و ستیز به دلیل رقابت‌های سیاسی، مذهبی و توسعه‌طلبی عثمانی", "بی‌تفاوتی", "اتحاد علیه اروپا"], correct: 1 },
+                    { text: "چه عاملی باعث شد کشورهای اروپایی به دنبال برقراری روابط دوستانه با ایران صفوی باشند؟", options: ["تجارت ابریشم", "مذهب مشترک", "توسعه صنعت در ایران", "تمایل به کاستن از حملات عثمانی به خاک اروپا از طریق اتحاد با ایران علیه عثمانی"], correct: 3 }
+                ]
+            },
+            // درس ۱۴
+            {
+                title: "فرهنگ و تمدن در عصر صفوی",
+                questions: [
+                    { text: "شاهان صفوی برای ترویج معارف شیعه و رفع نیازهای مذهبی جامعه چه اقدامی انجام دادند؟", options: ["مدارس نظامیه تأسیس کردند", "عده‌ای از علمای شیعه جبل عامل (لبنان)، عراق و بحرین را به ایران دعوت کردند", "به دانشمندان اروپایی پناه دادند", "دانشگاه‌های جدید ساختند"], correct: 1 },
+                    { text: "مدرسه در عصر صفوی چه ویژگی‌ای داشت؟", options: ["فقط محل عبادت بود", "مختص شاهزادگان بود", "فقط در پایتخت وجود داشت", "مرکزی برای آموزش معارف دینی و دیگر علوم بود که با پشتوانه موقوفات اداره می‌شد"], correct: 3 },
+                    { text: "میدان نقش جهان در اصفهان چه کاربردهای متنوعی داشت؟", options: ["فقط میدان اعدام", "محل برگزاری جشن‌ها، مسابقات چوگان، تیراندازی، بار یابی سفرا و آتش‌بازی", "فقط یک بازار بود", "محله مسکونی بود"], correct: 1 },
+                    { text: "شاهکار معماری عصر صفوی که در میدان نقش جهان واقع است و به لحاظ فن معماری و زیباشناسی بی‌نظیر است، کدام است؟", options: ["مسجد جامع عباسی (امام)", "کاخ عالی‌قاپو", "مسجد شیخ لطف‌الله", "پل خواجو"], correct: 2 },
+                    { text: "«مکتب تبریز» در نگارگری چگونه شکل گرفت؟", options: ["توسط هنرمندان اروپایی", "با آمدن کمال‌الدین بهزاد به تبریز و ترکیب مکتب هرات با عناصر جدید", "توسط شاه عباس", "در دوره قاجار"], correct: 1 },
+                    { text: "رضا عباسی در مکتب اصفهان چه نوآوری مهمی در نگارگری ایجاد کرد؟", options: ["نقاشی از شاهان", "به تصویر کشیدن زندگی روزمره مردم عادی و فعالیت اصناف و پیشه‌وران", "نقاشی از مناظر طبیعی اروپا", "استفاده از رنگ‌های تیره"], correct: 1 },
+                    { text: "فرش مشهور اردبیل به سفارش چه کسی و برای چه مکانی بافته شد؟", options: ["شاه تهماسب اول برای مقبره شیخ صفی‌الدین اردبیلی", "شاه عباس برای مسجد امام", "شاه اسماعیل برای حرم امام رضا (ع)", "گوهرشاد بیگم برای مسجد گوهرشاد"], correct: 0 },
+                    { text: "صدرالمتألهین (ملاصدرا) چه نقشی در فلسفه اسلامی ایفا کرد؟", options: ["فلسفه یونان را نقد کرد", "میراث چهار جریان فکری (مشاء، اشراق، کلام و عرفان) را در هم آمیخت و نظام فلسفی «حکمت متعالیه» را بنیان نهاد", "فلسفه را تحریم کرد", "فقط به ترجمه پرداخت"], correct: 1 },
+                    { text: "در دوره صفوی، پارچه‌بافی در چه سطحی قرار داشت و چه شهرهایی در آن تخصص داشتند؟", options: ["در سطح روستایی بود", "منحصر به دربار بود", "فقط ابریشم تولید می‌شد", "به یک صنعت ملی و پیشرفته تبدیل شد و شهرهایی مانند کاشان، اصفهان و یزد در تولید پارچه‌های زری‌بافت تخصص داشتند"], correct: 3 },
+                    { text: "از نظر سیاحان اروپایی، ایرانیان چه نگرشی به علم و دانش داشتند؟", options: ["به علم اهمیت نمی‌دادند", "از علوم اروپایی تقلید می‌کردند", "فقط به علوم دینی توجه داشتند", "اهمیت زیادی برای علوم و دانشمندان قائل بودند و مدارس متعددی برای آموزش علوم مختلف داشتند"], correct: 3 }
+                ]
+            },
+            // درس ۱۵
+            {
+                title: "قرون وسطا",
+                questions: [
+                    { text: "حمله ژرمن‌ها به امپراتوری روم غربی چه پیامد اقتصادی و اجتماعی مهمی داشت؟", options: ["رونق تجارت", "افول شهرنشینی، رکود تجارت و گسترش زندگی روستانشینی", "رشد علم و فرهنگ", "اتحاد اروپا"], correct: 1 },
+                    { text: "پادشاهی شارلمانی حاصل اتحاد با چه نهادی بود و پاپ چه لقبی به او داد؟", options: ["اتحاد با امپراتور روم شرقی / پادشاه فرانک‌ها", "اتحاد با کلیسای رم / امپراتور مقدس روم", "اتحاد با مسلمانان اندلس / خلیفه غرب", "اتحاد با ژرمن‌ها / سزار"], correct: 1 },
+                    { text: "نظام «فئودالیسم» در اروپا در نتیجه چه شرایطی شکل گرفت؟", options: ["قدرت گرفتن پادشاهان", "حمله مسلمانان", "توسعه تجارت", "هرج و مرج، ناامنی و ناتوانی پادشاهان در تأمین امنیت که منجر به واگذاری زمین در برابر خدمات شد"], correct: 3 },
+                    { text: "«سرف‌ها» در نظام فئودالی چه وضعیتی داشتند؟", options: ["کاملاً آزاد بودند", "مالک زمین بودند", "برده بودند", "کشاورز وابسته به زمین بودند که اجازه ترک زمین ارباب را نداشتند اما مانند برده قابل خرید و فروش نبودند"], correct: 3 },
+                    { text: "جنگ‌های صلیبی چه تأثیری بر وضعیت فرهنگی اروپا داشت؟", options: ["باعث نابودی فرهنگ اروپا شد", "زمینه‌ساز انتقال دستاوردهای علمی و تمدنی اسلام به اروپا شد", "تأثیری نداشت", "باعث رواج زبان عربی در اروپا شد"], correct: 1 },
+                    { text: "کلیسا در قرون وسطا برای مقابله با بدعت‌گذاری و مخالفان خود از چه ابزاری استفاده می‌کرد؟", options: ["گفت‌وگو و مناظره", "تفتیش عقاید (اینکوئیزیسیون) و مجازات‌های سخت مانند تبعید و سوزاندن", "بی‌تفاوتی", "دعوت به همکاری"], correct: 1 },
+                    { text: "پاپ بونیفاس هشتم در اختلاف با فیلیپ چهارم پادشاه فرانسه، چه دیدگاهی را مطرح کرد؟", options: ["برتری قدرت معنوی (پاپ) بر قدرت دنیوی (شاهان) و لزوم اطاعت همه از پاپ رم", "جدایی دین از سیاست", "برتری قدرت پادشاهان", "تساوی قدرت‌ها"], correct: 0 },
+                    { text: "جنگ صدساله چه تأثیری بر شیوه‌های جنگی در اروپا گذاشت؟", options: ["اهمیت شوالیه‌ها بیشتر شد", "جنگ‌ها متوقف شد", "اهمیت سواره نظام سنگین اسلحه (شوالیه‌ها) کاهش یافت و پیاده‌نظام مجهز به تفنگ و توپخانه جایگزین شد", "استفاده از باروت منسوخ شد"], correct: 2 },
+                    { text: "توماس آکویناس که بود و چه کرد؟", options: ["یک پادشاه", "فیلسوف بزرگی که از برهان‌های ارسطو برای اثبات خدا استفاده کرد و نظریاتش به فلسفه رسمی کلیسا تبدیل شد", "یک شوالیه", "یک کاشف جغرافیایی"], correct: 1 },
+                    { text: "دانشگاه‌های اروپایی در قرون وسطا عمدتاً به تدریس چه موضوعاتی می‌پرداختند؟", options: ["الهیات مسیحی، فلسفه و حقوق", "علوم تجربی و مهندسی", "طب سنتی چینی", "نجوم و ستاره‌شناسی"], correct: 0 }
+                ]
+            },
+            // درس ۱۶
+            {
+                title: "رنسانس و عصر جدید",
+                questions: [
+                    { text: "کدام یک از عوامل زیر مهم‌ترین زمینه‌های ظهور رنسانس در ایتالیا بود؟", options: ["قدرت گرفتن کلیسا", "رشد شهرنشینی و تجارت، گسترش روابط فرهنگی با جهان اسلام و پیشینه فرهنگی یونانی-رومی", "حمله عثمانی به ایتالیا", "کشف آمریکا"], correct: 1 },
+                    { text: "«اومانیسم» (انسان‌گرایی) چه دیدگاهی نسبت به انسان داشت که با دیدگاه کلیسای قرون وسطایی متفاوت بود؟", options: ["انسان را پست و حقیر می‌دانست", "انسان را موجودی گناهکار می‌دید", "انسان را فقط برای خدمت به خدا خلق شده می‌دانست", "انسان را محور و مدار جهان می‌شمرد و برای توانایی‌ها و زندگی دنیوی او ارزش قائل بود"], correct: 3 },
+                    { text: "چه کسی را پیشگام نهضت ادبی رنسانس می‌دانند و او چه لقبی به قرون وسطا داد؟", options: ["دانته / عصر طلایی", "پترارک / عصر تاریکی", "ماکیاولی / عصر خرد", "شکسپیر / عصر ایمان"], correct: 1 },
+                    { text: "آثار و اندیشه‌های ابن‌سینا چه تأثیری بر رنسانس داشت؟", options: ["هیچ تأثیری نداشت", "غرب از طریق ترجمه آثار او (مانند کتاب قانون) توانست با تفکر یونانی آشنا شود و چندین قرن کتاب او مرجع طب بود", "باعث ترویج فلسفه اسلامی در شرق شد", "مورد انتقاد شدید اروپاییان قرار گرفت"], correct: 1 },
+                    { text: "اختراع ماشین چاپ توسط گوتنبرگ چه تأثیر مهمی بر اروپا گذاشت؟", options: ["به فراگیر شدن پژوهش‌های علمی، نشر علم و چاپ کتاب‌های غیرمذهبی کمک فراوانی کرد", "موجب کاهش باسوادی شد", "فقط به نفع کلیسا بود", "باعث جنگ شد"], correct: 0 },
+                    { text: "نیکلاوس کوپرنیک چه نظریه‌ای مطرح کرد که با باور کلیسا در تضاد بود؟", options: ["نظریه زمین مرکزی (ژئوسنتریک)", "نظریه خورشید مرکزی (هلیوسنتریک) و چرخش زمین به دور خورشید", "نظریه جاذبه", "نظریه تکامل"], correct: 1 },
+                    { text: "هدف اصلی کریستف کلمب از سفر دریایی خود چه بود و به کجا رسید؟", options: ["رسیدن به آفریقا / برزیل", "رسیدن به قطب جنوب / استرالیا", "رسیدن به هند از طریق اقیانوس اطلس / قاره آمریکا", "دور زدن جهان / هند"], correct: 2 },
+                    { text: "اکتشافات جغرافیایی چه تأثیری بر موقعیت اجتماعی تجار و صنعتگران (بورژوازی) داشت؟", options: ["آنان را تضعیف کرد", "اعتبار و منزلت آنان را افزایش داد", "تأثیری نداشت", "آنان را وادار به کشاورزی کرد"], correct: 1 },
+                    { text: "مارتین لوتر چه انتقاد اساسی به کلیسای کاتولیک وارد کرد؟", options: ["فقر کلیسا", "فروش آمرزش‌نامه‌ها و این اعتقاد که رستگاری در گرو ایمان است نه انجام کارهای نیک و پرداخت پول به کلیسا", "اتحاد کلیسا با پادشاهان", "عدم فعالیت‌های اجتماعی کلیسا"], correct: 1 },
+                    { text: "نهضت پروتستان چه تأثیری بر قدرت پادشاهان داشت؟", options: ["آنان را تضعیف کرد", "آنان را تحت سلطه کلیسا قرار داد", "موجب انقراض سلطنت‌ها شد", "به تقویت پادشاهان و دولت‌های ملی و رشد اندیشه ملی‌گرایی کمک کرد"], correct: 3 }
+                ]
+            }
+        ];
+
+        // متغیرهای سراسری
+        let studentName = '';
+        let currentLessonIndex = 0;
+        let currentQuestions = [];
+        let currentQIndex = 0;
+        let userAnswers = [];
+        let timerInterval = null;
+        let timeLeft = 30;          // تغییر به ۳۰ ثانیه
+        let answerLock = false;
+        let canSelect = true;
+
+        const page0 = document.getElementById('page0');
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const page3 = document.getElementById('page3');
+        const lessonListDiv = document.getElementById('lessonList');
+        const studentNameInput = document.getElementById('studentName');
+        const qCountSpan = document.getElementById('qCount');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const questionText = document.getElementById('questionText');
+        const optionsGrid = document.getElementById('optionsGrid');
+        const modal = document.getElementById('infoModal');
+        const modalText = document.getElementById('modalText');
+        const lessonTitleSpan = document.getElementById('lessonTitle');
+
+        function renderLessonList() {
+            let html = '';
+            lessons.forEach((l, idx) => {
+                html += `<div class="lesson-card" onclick="startLesson(${idx})">
+                    <i class="fas fa-history"></i> درس ${idx+1}<br><small>${l.title.substring(0,20)}</small>
+                </div>`;
+            });
+            lessonListDiv.innerHTML = html;
+        }
+
+        window.saveNameAndGo = function() {
+            const name = studentNameInput.value.trim();
+            if (name === '') {
+                alert('لطفاً نام خود را وارد کنید');
+                return;
+            }
+            studentName = name;
+            page0.classList.remove('active');
+            page1.classList.add('active');
+            renderLessonList();
+        };
+
+        window.startLesson = function(lessonIdx) {
+            currentLessonIndex = lessonIdx;
+            lessonTitleSpan.textContent = `درس ${lessonIdx+1}: ${lessons[lessonIdx].title}`;
+
+            let original = lessons[lessonIdx].questions;
+            currentQuestions = shuffleArray([...original]);
+            currentQIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill(null);
+            page1.classList.remove('active');
+            page2.classList.add('active');
+            startTimer();
+            renderQuestion();
+        };
+
+        window.backToLessons = function() {
+            clearTimer();
+            page2.classList.remove('active');
+            page3.classList.remove('active');
+            page1.classList.add('active');
+        };
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function startTimer() {
+            clearTimer();
+            timeLeft = 30;          // تنظیم مجدد روی ۳۰
+            timerDisplay.textContent = timeLeft;
+            answerLock = false;
+            canSelect = true;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearTimer();
+                    if (!answerLock && canSelect) {
+                        handleAnswer(-1);
+                    }
+                }
+            }, 1000);
+        }
+
+        function clearTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function renderQuestion() {
+            if (currentQIndex >= currentQuestions.length) {
+                showResult();
+                return;
+            }
+            const q = currentQuestions[currentQIndex];
+            questionText.textContent = `${currentQIndex+1}. ${q.text}`;
+            qCountSpan.textContent = `${currentQIndex+1} / ${currentQuestions.length}`;
+            let optsHtml = '';
+            q.options.forEach((opt, idx) => {
+                const letter = String.fromCharCode(65 + idx);
+                optsHtml += `<div class="option" data-color="${idx}" data-opt-index="${idx}" onclick="selectAnswer(${idx})">
+                    <span class="letter">${letter}</span>
+                    <span>${opt}</span>
+                </div>`;
+            });
+            optionsGrid.innerHTML = optsHtml;
+            document.querySelectorAll('.option').forEach(el => {
+                el.classList.remove('selected-correct', 'selected-wrong', 'disabled');
+            });
+            startTimer();
+        }
+
+        window.selectAnswer = function(optIndex) {
+            if (!canSelect || answerLock) return;
+            answerLock = true;
+            canSelect = false;
+            clearTimer();
+
+            const correctIdx = currentQuestions[currentQIndex].correct;
+            const isCorrect = (optIndex === correctIdx);
+            userAnswers[currentQIndex] = { selected: optIndex, isCorrect: isCorrect };
+
+            const allOpts = document.querySelectorAll('.option');
+            allOpts.forEach(el => {
+                const idx = parseInt(el.dataset.optIndex);
+                if (idx === correctIdx) el.classList.add('selected-correct');
+                else if (idx === optIndex && !isCorrect) el.classList.add('selected-wrong');
+                el.classList.add('disabled');
+            });
+
+            // جابجایی صدا: برای صحیح 300 و برای غلط 700
+            if (isCorrect) playSound(300);
+            else playSound(700);
+
+            setTimeout(() => {
+                currentQIndex++;
+                if (currentQIndex < currentQuestions.length) {
+                    renderQuestion();
+                } else {
+                    showResult();
+                }
+            }, 1000);
+        };
+
+        function handleAnswer(optIndex) {
+            if (!canSelect) return;
+            answerLock = true;
+            canSelect = false;
+            const correctIdx = currentQuestions[currentQIndex].correct;
+            userAnswers[currentQIndex] = { selected: -1, isCorrect: false };
+
+            const allOpts = document.querySelectorAll('.option');
+            allOpts.forEach(el => {
+                const idx = parseInt(el.dataset.optIndex);
+                if (idx === correctIdx) el.classList.add('selected-correct');
+                el.classList.add('disabled');
+            });
+            playSound(700); // غلط (زمان تمام شده) با صدای جدید 700
+            setTimeout(() => {
+                currentQIndex++;
+                if (currentQIndex < currentQuestions.length) {
+                    renderQuestion();
+                } else {
+                    showResult();
+                }
+            }, 1000);
+        }
+
+        function showResult() {
+            page2.classList.remove('active');
+            page3.classList.add('active');
+            let correctCount = userAnswers.filter(a => a && a.isCorrect).length;
+            let wrongCount = userAnswers.filter(a => a && !a.isCorrect).length;
+            document.getElementById('resultName').innerHTML = `${studentName} <i class="fas fa-star"></i>`;
+            document.getElementById('scoreDisplay').innerText = `${correctCount} از ${currentQuestions.length}`;
+            document.getElementById('detailStat').innerHTML = `<div style="font-size:1.8rem">✅ ${correctCount} صحیح   ❌ ${wrongCount} غلط</div>`;
+        }
+
+        window.retryLesson = function() {
+            currentQuestions = shuffleArray([...lessons[currentLessonIndex].questions]);
+            currentQIndex = 0;
+            userAnswers = [];
+            page3.classList.remove('active');
+            page2.classList.add('active');
+            renderQuestion();
+        };
+
+        window.prevLesson = function() {
+            if (currentLessonIndex > 0) {
+                currentLessonIndex--;
+                startLesson(currentLessonIndex);
+            } else alert('اولین درس است');
+        };
+        window.nextLesson = function() {
+            if (currentLessonIndex < lessons.length-1) {
+                currentLessonIndex++;
+                startLesson(currentLessonIndex);
+            } else alert('آخرین درس است');
+        };
+
+        function playSound(freq) {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.frequency.value = freq;
+                gainNode.gain.value = 0.2;
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.3);
+            } catch (e) { }
+        }
+
+        window.showInfo = function(type) {
+            let text = '';
+            if (type === 'توضیحات') text = '📚 تمام مطالب برگرفته از کتاب تاریخ پایه یازدهم رشته انسانی می‌باشد که سعی شده طراحی سوالات بر اساس چارچوب سوالات امتحان نهایی و کنکور طراحی گردد.';
+            else text = '✍️ طراحی و تنظیم: رضا اسدی - ماندانا فرهمند';
+            modalText.innerText = text;
+            modal.style.display = 'flex';
+        };
+        window.closeModal = function() {
+            modal.style.display = 'none';
+        };
+
+        renderLessonList();
+    })();
+</script>
+</body>
+</html>
+```
